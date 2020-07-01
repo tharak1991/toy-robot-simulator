@@ -1,0 +1,8 @@
+{
+  "name": "toy-simulator",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

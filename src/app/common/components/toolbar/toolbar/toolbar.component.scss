@@ -1,0 +1,18 @@
+ion-icon{
+    color: #0323CC !important;
+  }
+  
+  .icon-box{
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    justify-content: space-between;
+  }
+
+  .img-item{
+    justify-content: flex-start;
+  }
+
+  .icon-items{
+    justify-content: flex-end !important;
+  }
