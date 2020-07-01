@@ -40,20 +40,20 @@ const direction = {
 })
 export class HomeToyNewComponent implements OnInit {
 
-  robot: IGame ;
+  robot: IGame;
 
   constructor(public formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.robot = {
       value: '',
-      location: { },
+      location: {},
       facing: {},
       placed: false,
       actions: []
 
     }
-    this.showError = false ;
+    this.showError = false;
     this.loginForm = this.formBuilder.group({
       userInput: [''],
     })
@@ -62,7 +62,7 @@ export class HomeToyNewComponent implements OnInit {
 
   loginForm: FormGroup;
   isSubmitted = false;
-  showError = false ;
+  showError = false;
 
   reset = () => {
 
@@ -73,14 +73,15 @@ export class HomeToyNewComponent implements OnInit {
       placed: false,
       actions: []
     };
+    this.loginForm.reset();
+    this.showError = false;
 
   }
 
-  submitForm = () =>{
-    debugger ;
+  submitForm = () => {
 
-
-    const sampleInput = this.loginForm.controls.userInput.value.trim() ;
+    this.showError = false;
+    const sampleInput = this.loginForm.controls.userInput.value.trim();
 
     const inputLine = sampleInput.split(/[\s,]+/);
     // If the first word isn't a command, we ignore it
@@ -97,7 +98,7 @@ export class HomeToyNewComponent implements OnInit {
           this.robot = {
             value: this.robot.value,
             location: { x, y },
-            facing: facing ,
+            facing: facing,
             placed: true,
             actions: [...this.robot.actions, `PLACE ${x},${y},${f}`]
 
@@ -114,19 +115,19 @@ export class HomeToyNewComponent implements OnInit {
         const nextX = this.robot.location.x + moveX;
         const nextY = this.robot.location.y + moveY;
         if (nextX > -1 && nextX < 5 && nextY > -1 && nextY < 5) {
-          this.robot.location =  { x: nextX, y: nextY } ;
+          this.robot.location = { x: nextX, y: nextY };
           this.robot.actions = [...this.robot.actions, "MOVE"];
-          this.showError = false ;
-        }else{
+          this.showError = false;
+        } else {
           //robot out of table
-          this.showError = true ;
+          this.showError = true;
         }
       } else if (command === "LEFT") {
         const x = this.robot.facing.x;
         const y = this.robot.facing.y;
 
         this.robot.facing = { x: -y, y: x },
-        this.robot.actions = [...this.robot.actions, "LEFT"];
+          this.robot.actions = [...this.robot.actions, "LEFT"];
 
       } else if (command === "RIGHT") {
         const x = this.robot.facing.x;
@@ -134,22 +135,22 @@ export class HomeToyNewComponent implements OnInit {
 
 
         this.robot.facing = { x: y, y: -x },
-        this.robot.actions = [...this.robot.actions, "RIGHT"];
+          this.robot.actions = [...this.robot.actions, "RIGHT"];
 
       } else if (command === "REPORT") {
 
         const location = this.robot.location;
         var report = `Output: ${location.x},${location.y},${
           direction.x[this.robot.facing.x.toString()].y[
-            this.robot.facing.y.toString()
+          this.robot.facing.y.toString()
           ]
-        }`;
-        this.robot.actions =[...this.robot.actions, "REPORT", report];
-  
+          }`;
+        this.robot.actions = [...this.robot.actions, "REPORT", report];
+
       }
     }
     // Reset value in input
-    this.robot.value = '' ;
+    this.robot.value = '';
 
 
   }

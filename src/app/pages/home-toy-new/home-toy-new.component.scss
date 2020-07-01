@@ -17,6 +17,11 @@ ion-button {
     text-align: center;
 }
 
+.login-page {
+    margin-top: 10%;
+}
+
+
 h2 {
     color: var(--ion-color-primary);
     font-weight: bold;
@@ -65,7 +70,11 @@ h2 {
     font-weight: 500;
     font-size: 22px;
     line-height: 28px;
-    color: var(--ion-color-primary)
+    color: var(--ion-color-primary)!important ;
+    }
+
+    .txt-rbt{
+        text-align: center;
     }
 
 
@@ -99,12 +108,9 @@ h2 {
 
 @media only screen and (min-width: 488px) and (max-width: 768px) {
     .login-form {
-        margin-top: 1%;
+        margin-top: 10%;
     }
 
-    .login-page {
-        margin-top: -5%;
-    }
 
     img {
         width: 20%;
@@ -125,9 +131,7 @@ h2 {
         margin-top: 10%;
     }
 
-    .login-page {
-        margin-top: -5%;
-    }
+   
 
     img {
         width: 20%;
@@ -156,9 +160,7 @@ h2 {
         margin-top: 1%;
     }
 
-    .login-page {
-        margin-top: 1%;
-    }
+   
 
 }
 

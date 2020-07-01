@@ -4,9 +4,12 @@
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
           <div padding>
+            <div class="txt-rbt">
+              <span color="primary" class="txt-head"><strong>Robot Toy Simulator</strong></span>
+            </div>
 
-            <span color="primary" class="txt-head"><strong>Robot Toy Simulator</strong></span>
-            
+
+
           </div>
           <br>
 
@@ -38,7 +41,7 @@
 
 
 
-             
+
             </form>
 
           </div>
@@ -48,14 +51,14 @@
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
 
-      <div class="list">
-        <div class="item item-divider">REPORT</div>
-        <div *ngFor="let action of this.robot.actions" class="item">
-          <ion-item>{{action}}</ion-item>
-        </div>
-      </div>
-    </ion-col>
-    </ion-row>
+          <div class="list">
+            <div class="item item-divider">REPORT</div>
+            <div *ngFor="let action of this.robot.actions" class="item">
+              <ion-item>{{action}}</ion-item>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   </div>
 

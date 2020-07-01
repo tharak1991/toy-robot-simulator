@@ -5,13 +5,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/home-toy-new/home-toy-new.module').then( m => m.HomeToyNewModule)
-    // loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./pages/home-toy-new/home-toy-new.module').then(m => m.HomeToyNewModule)
+
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home-toy-new/home-toy-new.module').then( m => m.HomeToyNewModule)
-    // loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./pages/home-toy-new/home-toy-new.module').then(m => m.HomeToyNewModule)
+
   },
 
 ];
@@ -21,4 +21,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
