@@ -36,7 +36,7 @@ const direction = {
 @Component({
   selector: 'app-home-toy-new',
   templateUrl: './home-toy-new.component.html',
-  styleUrls: ['./home-toy-new.component.scss'],
+  styleUrls: ['./copy.scss'],
 })
 export class HomeToyNewComponent implements OnInit {
 
