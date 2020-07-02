@@ -41,6 +41,7 @@ const direction = {
 export class HomeToyNewComponent implements OnInit {
 
   robot: IGame;
+  boxCountArray = new Array(25);
 
   constructor(public formBuilder: FormBuilder) { }
 
