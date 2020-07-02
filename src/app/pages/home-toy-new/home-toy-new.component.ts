@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IGame } from 'src/app/core/interface/robot';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -42,6 +42,11 @@ export class HomeToyNewComponent implements OnInit {
 
   robot: IGame;
   boxCountArray = new Array(25);
+  @ViewChild('canvas', { static: true }) 
+  canvas: ElementRef<HTMLCanvasElement>;
+
+  ctx: any
+
 
   constructor(public formBuilder: FormBuilder) { }
 
@@ -58,6 +63,8 @@ export class HomeToyNewComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       userInput: [''],
     })
+
+    this.drawTable();
     // this.submitForm();
   }
 
@@ -155,5 +162,35 @@ export class HomeToyNewComponent implements OnInit {
 
 
   }
+
+  drawTable() {
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+    // var c = document.getElementById("myCanvas");
+    // var ctx = this.canvas.getContext("2d");
+
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 5; j++) {
+        this.ctx.moveTo(0, 60 * j);
+        this.ctx.lineTo(300, 60 * j);
+        this.ctx.stroke();
+
+        this.ctx.moveTo(60 * i, 0);
+        this.ctx.lineTo(60 * i, 300);
+        this.ctx.stroke();
+        var left = 0;
+        for (var a = 0; a < 5; a++) {
+          for (var b = 0; b < 5; b += 2) {
+            var startX = b * 60;
+            if (a % 2 == 0) startX = (b + 1) * 60;
+            this.ctx.fillRect(startX + left, (a * 60), 60, 60);
+          }
+        }
+      }
+    }
+  }
+
+
+
+
 
 }
