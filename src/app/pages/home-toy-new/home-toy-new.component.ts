@@ -1,43 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IGame } from 'src/app/core/interface/robot';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { IfStmt } from '@angular/compiler';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
-const orientation = {
-  NORTH: { x: 0, y: 1 },
-  SOUTH: { x: 0, y: -1 },
-  WEST: { x: -1, y: 0 },
-  EAST: { x: 1, y: 0 }
-};
 
-// Used to get direction for output
-const direction = {
-  x: {
-    "0": {
-      y: {
-        "1": "NORTH",
-        "-1": "SOUTH"
-      }
-    },
-    "1": {
-      y: {
-        "0": "EAST"
-      }
-    },
-    "-1": {
-      y: {
-        "0": "WEST"
-      }
-    }
-  }
-};
+
 
 @Component({
   selector: 'app-home-toy-new',
   templateUrl: './home-toy-new.component.html',
-  styleUrls: ['./copy.scss'],
+  styleUrls: ['./home-toy.scss'],
 })
 export class HomeToyNewComponent implements OnInit {
 
@@ -66,7 +37,7 @@ export class HomeToyNewComponent implements OnInit {
 
     }
     this.showError = false;
-    this.loginForm = this.formBuilder.group({
+    this.toyForm = this.formBuilder.group({
       userInput: [''],
     })
 
@@ -74,7 +45,7 @@ export class HomeToyNewComponent implements OnInit {
     // this.submitForm();
   }
 
-  loginForm: FormGroup;
+  toyForm: FormGroup;
   isSubmitted = false;
   showError = false;
 
@@ -87,7 +58,7 @@ export class HomeToyNewComponent implements OnInit {
       placed: false,
       actions: []
     };
-    this.loginForm.reset();
+    this.toyForm.reset();
     this.showError = false;
 
   }
@@ -98,7 +69,7 @@ export class HomeToyNewComponent implements OnInit {
     let yCoord = 0;
 
     this.showError = false;
-    const sampleInput = this.loginForm.controls.userInput.value.trim();
+    const sampleInput = this.toyForm.controls.userInput.value.trim();
 
     const inputLine = sampleInput.split(/[\s,]+/);
     // If the first word isn't a command, we ignore it
@@ -215,7 +186,7 @@ export class HomeToyNewComponent implements OnInit {
     return xcord;
   }
 
-  drawTable(x = 1, y = 1, isUpdate = false, rotate = '') {
+  drawTable(x = 0, y = 0, isUpdate = false, rotate = '') {
 
     if (rotate != '') {
       this.ctx.clearRect(0, 0, 300, 300);
@@ -275,3 +246,32 @@ export class HomeToyNewComponent implements OnInit {
 //   this.ctx.rotate(180 * Math.PI / 180);
 // }
 }
+
+const orientation = {
+  NORTH: { x: 0, y: 1 },
+  SOUTH: { x: 0, y: -1 },
+  WEST: { x: -1, y: 0 },
+  EAST: { x: 1, y: 0 }
+};
+
+// Used to get direction for output
+const direction = {
+  x: {
+    "0": {
+      y: {
+        "1": "NORTH",
+        "-1": "SOUTH"
+      }
+    },
+    "1": {
+      y: {
+        "0": "EAST"
+      }
+    },
+    "-1": {
+      y: {
+        "0": "WEST"
+      }
+    }
+  }
+};

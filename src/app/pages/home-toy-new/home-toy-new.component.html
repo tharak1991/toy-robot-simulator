@@ -1,64 +1,34 @@
-<ion-content padding>
-  <div class="login-page">
+<ion-content >
+  <div class="toy-page">
     <ion-grid>
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
-          <div padding>
+          <div >
             <div class="txt-rbt">
               <span color="primary" class="txt-head"><strong>Robot Toy Simulator</strong></span>
-            </div>
-            <!-- <img #toy id="toy" src="../../../assets/img/toy2.jpeg" /> -->
-
-            <canvas #canvas id="myCanvas" width="300" height="300" style="border:2px solid #d3d3d3;">
+            </div> 
+            
+            <div class="canv-box">
+              <canvas #canvas id="myCanvas" width="300" height="300" style="border:2px solid #d3d3d3;">
               </canvas>
+            </div>
 
-<!-- <div id="grid-container-two">
-
-
-
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-  <div class="grid-square"></div>
-</div> -->
+            
 
           </div>
           <br>
 
+          <div class="toy-form">
 
+            <form [formGroup]="toyForm" (ngSubmit)="submitForm()" novalidate>
 
-          <div class="login-form">
-
-            <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
-
-              <div padding>
+              <div >
                 <ion-item lines="none">
                   <ion-input formControlName="userInput" type="text" placeholder="Command"></ion-input>
 
                 </ion-item>
 
-                <div *ngIf="this.showError" class="login-error">
+                <div *ngIf="this.showError" class="toy-error">
                   <span>
                     False move : Robot out of table
                   </span>
