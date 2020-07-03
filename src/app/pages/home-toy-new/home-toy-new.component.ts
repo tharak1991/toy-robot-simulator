@@ -42,10 +42,15 @@ export class HomeToyNewComponent implements OnInit {
 
   robot: IGame;
   boxCountArray = new Array(25);
-  @ViewChild('canvas', { static: true }) 
+
+  @ViewChild('canvas', { static: true })
   canvas: ElementRef<HTMLCanvasElement>;
 
-  ctx: any
+  // @ViewChild('toy', { static: true })
+  // toy: ElementRef<HTMLCanvasElement>;
+
+  ctx: any;
+  // toyRobot: any;
 
 
   constructor(public formBuilder: FormBuilder) { }
@@ -64,7 +69,7 @@ export class HomeToyNewComponent implements OnInit {
       userInput: [''],
     })
 
-    this.drawTable();
+    this.drawTable(5,5);
     // this.submitForm();
   }
 
@@ -87,6 +92,8 @@ export class HomeToyNewComponent implements OnInit {
   }
 
   submitForm = () => {
+
+    
 
     this.showError = false;
     const sampleInput = this.loginForm.controls.userInput.value.trim();
@@ -117,6 +124,7 @@ export class HomeToyNewComponent implements OnInit {
     // Ignore everything else until robot is placed
     if (this.robot.placed) {
       if (command === "MOVE") {
+        debugger;
         const moveX = this.robot.facing.x;
         const moveY = this.robot.facing.y;
         // Make sure the robot won't fall off the table
@@ -126,6 +134,7 @@ export class HomeToyNewComponent implements OnInit {
           this.robot.location = { x: nextX, y: nextY };
           this.robot.actions = [...this.robot.actions, "MOVE"];
           this.showError = false;
+          this.changeImagePosition(this.robot.location.x  , this.robot.location.y  );
         } else {
           //robot out of table
           this.showError = true;
@@ -156,6 +165,8 @@ export class HomeToyNewComponent implements OnInit {
         this.robot.actions = [...this.robot.actions, "REPORT", report];
 
       }
+      
+     
     }
     // Reset value in input
     this.robot.value = '';
@@ -163,7 +174,7 @@ export class HomeToyNewComponent implements OnInit {
 
   }
 
-  drawTable() {
+  drawTable(x=1,y=1) {
     this.ctx = this.canvas.nativeElement.getContext('2d');
     // var c = document.getElementById("myCanvas");
     // var ctx = this.canvas.getContext("2d");
@@ -187,7 +198,34 @@ export class HomeToyNewComponent implements OnInit {
         }
       }
     }
+
+
+    var img = new Image();
+    img.onload = () => {
+      this.ctx.drawImage(img, x + 20, y + 20, 20, 20);
+      // do other canvas handling here!
+    }
+    img.src = "assets/img/toy2.jpeg";
+
   }
+
+
+  changeImagePosition(x, y){
+    this.ctx.clearRect(0, 0, 300, 300);
+    this.drawTable(50,0);
+    // this.ctx.moveTo(x, y);
+    // this.ctx.lineTo(x, y);
+    // var img = new Image();
+   
+    // img.onload = () => {
+    //   this.ctx.drawImage(img, 200, 200, 40, 40);
+    //   // do other canvas handling here!
+    // }
+
+    // img.src = "assets/img/toy2.jpeg";
+    
+  }
+
 
 
 
