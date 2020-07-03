@@ -92,6 +92,9 @@ export class HomeToyNewComponent implements OnInit {
   }
 
   submitForm = () => {
+    debugger;
+    let xCoord = 0;
+    let yCoord = 0
 
     
 
@@ -103,13 +106,14 @@ export class HomeToyNewComponent implements OnInit {
     let command = inputLine[0];
     if (command === "PLACE") {
       if (inputLine.length === 4) {
-        const x = parseInt(inputLine[1], 10),
+        let x = parseInt(inputLine[1], 10),
           y = parseInt(inputLine[2], 10),
           f = inputLine[3];
         const facing = orientation[f];
         // Check if the robot is still on the table, and valid direction
         if (x > -1 && x < 5 && y > -1 && y < 5 && facing) {
-
+          xCoord = this.getposition(x);
+          yCoord = this.getposition(y);
           this.robot = {
             value: this.robot.value,
             location: { x, y },
@@ -120,6 +124,7 @@ export class HomeToyNewComponent implements OnInit {
           }
         }
       }
+      this.changeImagePosition( xCoord, yCoord );
     }
     // Ignore everything else until robot is placed
     if (this.robot.placed) {
@@ -174,7 +179,32 @@ export class HomeToyNewComponent implements OnInit {
 
   }
 
-  drawTable(x=1,y=1) {
+  getposition(x){
+    let xcord = 0 ;
+    switch (x) {
+      case 0:
+        xcord = 0;
+        break;
+      case 1:
+        xcord = 50;
+        break;
+      case 2:
+        xcord = 100;
+        break;
+      case 3:
+        xcord = 150;
+        break;
+      case 4:
+        xcord = 200;
+        break;
+      case 5:
+        xcord = 250;
+        break;
+    }
+    return xcord ;
+  }
+
+  drawTable(x=1,y=1,isUpdate) {
     this.ctx = this.canvas.nativeElement.getContext('2d');
     // var c = document.getElementById("myCanvas");
     // var ctx = this.canvas.getContext("2d");
@@ -202,7 +232,11 @@ export class HomeToyNewComponent implements OnInit {
 
     var img = new Image();
     img.onload = () => {
-      this.ctx.drawImage(img, x + 20, y + 20, 20, 20);
+      let buffer = 20 ;
+      if(isUpdate){
+        buffer = 0;
+      }
+      this.ctx.drawImage(img, x + buffer, y + buffer, 20, 20);
       // do other canvas handling here!
     }
     img.src = "assets/img/toy2.jpeg";
@@ -212,7 +246,7 @@ export class HomeToyNewComponent implements OnInit {
 
   changeImagePosition(x, y){
     this.ctx.clearRect(0, 0, 300, 300);
-    this.drawTable(50,0);
+    this.drawTable(x,y,true);
     // this.ctx.moveTo(x, y);
     // this.ctx.lineTo(x, y);
     // var img = new Image();
