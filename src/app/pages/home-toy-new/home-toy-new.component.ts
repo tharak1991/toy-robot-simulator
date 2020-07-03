@@ -3,6 +3,7 @@ import { IGame } from 'src/app/core/interface/robot';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { IfStmt } from '@angular/compiler';
 
 const orientation = {
   NORTH: { x: 0, y: 1 },
@@ -69,7 +70,7 @@ export class HomeToyNewComponent implements OnInit {
       userInput: [''],
     })
 
-    this.drawTable(0,0,false);
+    this.drawTable(0, 0, false, '');
     // this.submitForm();
   }
 
@@ -94,9 +95,7 @@ export class HomeToyNewComponent implements OnInit {
   submitForm = () => {
     debugger;
     let xCoord = 0;
-    let yCoord = 0
-
-    
+    let yCoord = 0;
 
     this.showError = false;
     const sampleInput = this.loginForm.controls.userInput.value.trim();
@@ -124,7 +123,7 @@ export class HomeToyNewComponent implements OnInit {
           }
         }
       }
-      this.changeImagePosition( xCoord, yCoord,true );
+      this.changeImagePosition(xCoord, yCoord, true, '');
     }
     // Ignore everything else until robot is placed
     if (this.robot.placed) {
@@ -136,16 +135,17 @@ export class HomeToyNewComponent implements OnInit {
         const nextX = this.robot.location.x + moveX;
         const nextY = this.robot.location.y + moveY;
         if (nextX > -1 && nextX < 5 && nextY > -1 && nextY < 5) {
+
           this.robot.location = { x: nextX, y: nextY };
           this.robot.actions = [...this.robot.actions, "MOVE"];
           this.showError = false;
           xCoord = this.getposition(nextX);
           yCoord = this.getposition(nextY);
-          
-            this.changeImagePosition(xCoord, yCoord, true  );
-          
-          
-          
+
+          this.changeImagePosition(xCoord, yCoord, true, '');
+
+
+
         } else {
           //robot out of table
           this.showError = true;
@@ -154,6 +154,11 @@ export class HomeToyNewComponent implements OnInit {
         const x = this.robot.facing.x;
         const y = this.robot.facing.y;
 
+        xCoord = this.getposition(this.robot.location.x);
+        yCoord = this.getposition(this.robot.location.y);
+
+        this.ctx.rotate(45 * Math.PI / 180);
+
         this.robot.facing = { x: -y, y: x },
           this.robot.actions = [...this.robot.actions, "LEFT"];
 
@@ -161,7 +166,10 @@ export class HomeToyNewComponent implements OnInit {
         const x = this.robot.facing.x;
         const y = this.robot.facing.y;
 
+        xCoord = this.getposition(this.robot.location.x);
+        yCoord = this.getposition(this.robot.location.y);
 
+        this.drawTable(xCoord, yCoord, true, 'RIGHT');
         this.robot.facing = { x: y, y: -x },
           this.robot.actions = [...this.robot.actions, "RIGHT"];
 
@@ -174,19 +182,16 @@ export class HomeToyNewComponent implements OnInit {
           ]
           }`;
         this.robot.actions = [...this.robot.actions, "REPORT", report];
-
       }
-      
-     
+
+
     }
     // Reset value in input
     this.robot.value = '';
-
-
   }
 
-  getposition(x){
-    let xcord = 0 ;
+  getposition(x) {
+    let xcord = 0;
     switch (x) {
       case 0:
         xcord = 0;
@@ -207,10 +212,16 @@ export class HomeToyNewComponent implements OnInit {
         xcord = 250;
         break;
     }
-    return xcord ;
+    return xcord;
   }
 
-  drawTable(x=1,y=1,isUpdate = false) {
+  drawTable(x = 1, y = 1, isUpdate = false, rotate = '') {
+
+    if (rotate != '') {
+      this.ctx.clearRect(0, 0, 300, 300);
+
+    }
+
     this.ctx = this.canvas.nativeElement.getContext('2d');
     // var c = document.getElementById("myCanvas");
     // var ctx = this.canvas.getContext("2d");
@@ -235,40 +246,32 @@ export class HomeToyNewComponent implements OnInit {
       }
     }
 
-
     var img = new Image();
     img.onload = () => {
-      let buffer = 0 ;
-      if(isUpdate){
-        buffer = 30;
+      let buffer = 0;
+      if (isUpdate) {
+        buffer = 35;
       }
-      this.ctx.drawImage(img, x - buffer, y  - buffer, 60, 60);
+      this.ctx.drawImage(img, x - buffer, y - buffer, 60, 60);
       // do other canvas handling here!
     }
-    img.src = "assets/img/toy2.jpeg";
-
+    img.src = "assets/img/robot.png";
   }
 
 
-  changeImagePosition(x, y, isUpdate = false){
+  changeImagePosition(x, y, isUpdate = false, rotate) {
     this.ctx.clearRect(0, 0, 300, 300);
-    this.drawTable(x,y,isUpdate);
-    // this.ctx.moveTo(x, y);
-    // this.ctx.lineTo(x, y);
-    // var img = new Image();
-   
-    // img.onload = () => {
-    //   this.ctx.drawImage(img, 200, 200, 40, 40);
-    //   // do other canvas handling here!
-    // }
-
-    // img.src = "assets/img/toy2.jpeg";
-    
+    this.drawTable(x, y, isUpdate, rotate);
   }
 
+  rotateCanvas(x, y, isUpdate = false, rotate = '') {
+    this.ctx.clearRect(0, 0, 300, 300);
+    this.drawTable(x, y, isUpdate, rotate,);
+  }
 
-
-
-
-
+//   if(rotate == 'LEFT') {
+//   this.ctx.rotate(90 * Math.PI / 180);
+// }else if (rotate == 'RIGHT') {
+//   this.ctx.rotate(180 * Math.PI / 180);
+// }
 }
