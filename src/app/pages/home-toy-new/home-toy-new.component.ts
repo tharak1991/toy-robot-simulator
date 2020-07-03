@@ -69,7 +69,7 @@ export class HomeToyNewComponent implements OnInit {
       userInput: [''],
     })
 
-    this.drawTable(5,5);
+    this.drawTable(0,0,false);
     // this.submitForm();
   }
 
@@ -124,7 +124,7 @@ export class HomeToyNewComponent implements OnInit {
           }
         }
       }
-      this.changeImagePosition( xCoord, yCoord );
+      this.changeImagePosition( xCoord, yCoord,true );
     }
     // Ignore everything else until robot is placed
     if (this.robot.placed) {
@@ -139,7 +139,13 @@ export class HomeToyNewComponent implements OnInit {
           this.robot.location = { x: nextX, y: nextY };
           this.robot.actions = [...this.robot.actions, "MOVE"];
           this.showError = false;
-          this.changeImagePosition(this.robot.location.x  , this.robot.location.y  );
+          xCoord = this.getposition(nextX);
+          yCoord = this.getposition(nextY);
+          
+            this.changeImagePosition(xCoord, yCoord, true  );
+          
+          
+          
         } else {
           //robot out of table
           this.showError = true;
@@ -204,7 +210,7 @@ export class HomeToyNewComponent implements OnInit {
     return xcord ;
   }
 
-  drawTable(x=1,y=1,isUpdate) {
+  drawTable(x=1,y=1,isUpdate = false) {
     this.ctx = this.canvas.nativeElement.getContext('2d');
     // var c = document.getElementById("myCanvas");
     // var ctx = this.canvas.getContext("2d");
@@ -232,11 +238,11 @@ export class HomeToyNewComponent implements OnInit {
 
     var img = new Image();
     img.onload = () => {
-      let buffer = 20 ;
+      let buffer = 0 ;
       if(isUpdate){
-        buffer = 0;
+        buffer = 30;
       }
-      this.ctx.drawImage(img, x + buffer, y + buffer, 20, 20);
+      this.ctx.drawImage(img, x - buffer, y  - buffer, 60, 60);
       // do other canvas handling here!
     }
     img.src = "assets/img/toy2.jpeg";
@@ -244,9 +250,9 @@ export class HomeToyNewComponent implements OnInit {
   }
 
 
-  changeImagePosition(x, y){
+  changeImagePosition(x, y, isUpdate = false){
     this.ctx.clearRect(0, 0, 300, 300);
-    this.drawTable(x,y,true);
+    this.drawTable(x,y,isUpdate);
     // this.ctx.moveTo(x, y);
     // this.ctx.lineTo(x, y);
     // var img = new Image();
