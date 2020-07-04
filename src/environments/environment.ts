@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  // baseUrl: 'https://api.savecamp.in'
-  baseUrl: 'http://localhost:3520'
 };
 
 /*

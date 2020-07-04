@@ -1,70 +1,48 @@
-
 <ion-content >
-  <app-toolbar></app-toolbar>
   <div class="toy-page">
-    <ion-grid>
-      <ion-row color="primary" justify-content-center>
-        <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
-          <div >
-            <div class="txt-rbt">
-              <span color="primary" class="txt-head"><strong>Robot Toy Simulator</strong></span>
-            </div> 
-            
-            <div class="canv-box">
-              <canvas #canvas id="myCanvas" width="300" height="300" style="border:2px solid #d3d3d3;">
-              </canvas>
-            </div>
-
-            
-
-          </div>
-          <br>
-
-          <div class="toy-form">
-
-            <form [formGroup]="toyForm" (ngSubmit)="submitForm()" novalidate>
-
+     <ion-grid>
+        <ion-row color="primary" justify-content-center>
+           <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
               <div >
-                <ion-item lines="none">
-                  <ion-input formControlName="userInput" type="text" placeholder="Command"></ion-input>
-
-                </ion-item>
-
-                <div *ngIf="this.showError" class="toy-error">
-                  <span>
-                    False move : Robot out of table
-                  </span>
-                </div>
+                 <div class="txt-rbt">
+                    <span color="primary" class="txt-head"><strong>Robot Toy Simulator</strong></span>
+                 </div>
+                 <div class="canv-box">
+                    <canvas #canvas id="myCanvas" width="300" height="300" style="border:2px solid #d3d3d3;">
+                    </canvas>
+                 </div>
               </div>
-
-              <div class="btn-group">
-                <ion-button size="large" (click)="this.reset()" expand="block" color="danger">Reset</ion-button>
-
-
-                <ion-button size="large" type="submit" expand="block">Execute</ion-button>
+              <br>
+              <div class="toy-form">
+                 <form [formGroup]="toyForm" (ngSubmit)="executeCommand()" novalidate>
+                 <div >
+                    <ion-item lines="none">
+                       <ion-input formControlName="userInput" type="text" placeholder="Command"></ion-input>
+                    </ion-item>
+                    <div *ngIf="this.showFallError" class="toy-error">
+                       <span>
+                       False move : Robot out of table
+                       </span>
+                    </div>
+                 </div>
+                 <div class="btn-group">
+                    <ion-button size="large" (click)="this.reset()" expand="block" color="danger">Reset</ion-button>
+                    <ion-button size="large" type="submit" expand="block">Execute</ion-button>
+                 </div>
+                 </form>
               </div>
-
-
-
-
-            </form>
-
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row color="primary" justify-content-center>
-        <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
-
-          <div class="list">
-            <div class="item item-divider">REPORT</div>
-            <div *ngFor="let action of this.robot.actions" class="item">
-              <ion-item>{{action}}</ion-item>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+           </ion-col>
+        </ion-row>
+        <ion-row color="primary" justify-content-center>
+           <ion-col align-self-center size-md="10" size-lg="8" size-xs="12">
+              <div class="list">
+                 <div class="item item-divider">REPORT</div>
+                 <div *ngFor="let action of this.robot.actions" class="item">
+                    <ion-item>{{action}}</ion-item>
+                 </div>
+              </div>
+           </ion-col>
+        </ion-row>
+     </ion-grid>
   </div>
-
 </ion-content>
