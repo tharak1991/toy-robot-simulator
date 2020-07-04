@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HomeToyNewComponent } from './home-toy-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { ToolbarModule } from 'src/app/common/components/toolbar/toolbar/toolbar.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { IonicModule } from '@ionic/angular';
     IonicModule,
     ReactiveFormsModule,
     HomeToyNewRoutingModule,
+    ToolbarModule,
     RouterModule.forChild([{ path: '', component: HomeToyNewComponent }]),
   ]
 })
